@@ -2,7 +2,8 @@
 var connect = require('connect')
     , express = require('express')
     , io = require('socket.io')
-    , port = (process.env.PORT || 3000);
+    , port = (process.env.PORT || 3000)
+    , dgram = require("dgram");
 
 //Setup Express
 var server = express.createServer();
@@ -15,6 +16,21 @@ server.configure(function(){
     server.use(connect.static(__dirname + '/static'));
     server.use(server.router);
 });
+
+var udpsock = dgram.createSocket("udp4");
+
+udpsock.on("message", function (msg, rinfo) {
+  console.log("server got: " + msg + " from " +
+    rinfo.address + ":" + rinfo.port);
+});
+
+udpsock.on("listening", function () {
+  var address = udpsock.address();
+  console.log("server listening " +
+      address.address + ":" + address.port);
+});
+
+udpsock.bind(43000);
 
 //setup the errors
 server.error(function(err, req, res, next){
