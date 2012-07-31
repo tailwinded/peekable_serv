@@ -1,1 +1,3 @@
-node_modules
+public/externalLibs/jquery.knob.js
+public/externalLibs/paper.js
+public/externalLibs/jquery-1.7.2.min.js
