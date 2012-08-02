@@ -63,8 +63,8 @@ io.sockets.on('connection', function(socket){
       var cleanString = string.slice(0,string.length-1);
       var decodedString = JSON.parse(cleanString);
 
-      console.log("server got: " + decodedString.volume + " from " +
-      rinfo.address + ":" + rinfo.port);
+      //console.log("server got: " + decodedString.volume + " from " +
+      //rinfo.address + ":" + rinfo.port);
       // socket.broadcast.emit('server_message',dat);
       socket.emit('server_message', decodedString);
     });
