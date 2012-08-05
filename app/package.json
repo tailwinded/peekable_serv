@@ -1,6 +1,6 @@
 {
-  "name": "YOUR-PROJECT-NAME-HERE",
-  "description": "YOUR PROJECT DESCRIPTION HERE",
+  "name": "Peekable-Server",
+  "description": "Server for Peekable",
   "author": "YOUR NAME <your@emailaddress.com>",
   "version": "0.0.1",
   "dependencies": {

@@ -22,4 +22,6 @@ Vagrant::Config.run do |config|
       }    	      
     }
   end
+  # Do a few things after setup
+  config.vm.provision :shell, :path => "postsetup.sh"
 end
