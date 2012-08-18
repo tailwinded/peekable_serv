@@ -14,17 +14,13 @@ var groups = api.children;
 	for (var i = 0; i < groups.length-1; i++){
 		var g = getSetGroup(groups[i]);
 		all.set(groups[i],g);
-	}
-	
-
+	}	
 }
-
 
 
 function getSetGroup(groupPath){
 	
 	var group = new Dict;
-	//group.name = groupPath;
 	
 	var childrenCount = api.getcount(groupPath);
 	
@@ -91,7 +87,6 @@ function jsobj_to_dict(o) {
 
 
 
-function test_callback(args){
-	
+function test_callback(args){	
 }
 	
