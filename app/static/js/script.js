@@ -1,6 +1,6 @@
 /* Author: YOUR NAME HERE
 */
-
+counter= 0;
 $(document).ready(function() {   
 
   var socket = io.connect();
@@ -10,7 +10,9 @@ $(document).ready(function() {
   });
 
   socket.on('server_message', function(data){
-   $('#receiver').append('<li>' + data + '</li>');
-   console.log(data);  
+  	counter++;
+  	if (counter%60==0)
+		console.log(data);
+	volume = data.volume;
   });
 });

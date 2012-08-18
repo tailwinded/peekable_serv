@@ -17,6 +17,7 @@ html.no-js(lang='en')
     meta(name="viewport", content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/css/style.css')
     //-script(src='js/libs/modernizr-2.0.6.min.js')
+    script(src='/js/lib/paper.js')
   body
     block header
 
@@ -29,6 +30,7 @@ html.no-js(lang='en')
           window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\\/script>')
         //-script(defer, src='js/plugins.js')
         script(defer, src='/js/script.js')
+        script(defer, src='/js/view.js', type='text/paperscript', canvas='canvas-1')
         script(defer, src='/socket.io/socket.io.js')
           script
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
