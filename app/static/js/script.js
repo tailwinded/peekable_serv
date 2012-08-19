@@ -10,9 +10,7 @@ $(document).ready(function() {
   });
 
   socket.on('server_message', function(data){
-  	counter++;
-  	if (counter%60==0)
-		console.log(data);
 	volume = data.volume;
+	freqs = data.freqs;
   });
 });

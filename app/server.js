@@ -69,7 +69,7 @@ io.sockets.on('connection', function(socket){
       socket.emit('server_message', decodedString);
     });
   socket.on('message', function(data){
-    socket.broadcast.emit('server_message',data);
+    //socket.broadcast.emit('server_message',data);
     socket.emit('server_message',data);
 
     
