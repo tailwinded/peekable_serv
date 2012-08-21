@@ -158,9 +158,10 @@ function draw_frame() {
   drag_windows();
   
   for (var i=0; i < numBalls; i++) {
-    ballarray[i].colour = "rgb("+Math.floor(i*30 + (freqs[i*2+1]*5000))+","+Math.floor(i*20 + (freqs[i*2+1]*4500))+","+Math.floor(i*20 + (freqs[i*2+1]*3500))+")";
-    ballarray[i].y -= freqs[i*2]/200;
-    //if (freqs[i*2+1] > 0.005) ballarray[i].y = mycanvas.height;
+    ballarray[i].colour = "rgb("+Math.floor((freqs[i*2])%i*100)+","+Math.floor((freqs[i*2])%i*100)+","+Math.floor((freqs[i*2])%i*100)+")";
+    //ballarray[i].y = freqs[i*2];
+    if (freqs[i*2+1] > 0) ballarray[i].y -= freqs[i*2+1]*mycanvas.height/2;
+    //console.log(mycanvas.height-freqs[i*2+1]*10000);
     //console.log("rgb("+Math.floor(i*30 + (freqs[i*2+1]*2200))+","+Math.floor(i*20 + (freqs[i*2+1]*1500))+","+Math.floor(i*20 + (freqs[i*2+1]*1500))+")");
     ballarray[i]
     collide_ball(ballarray[i]);
