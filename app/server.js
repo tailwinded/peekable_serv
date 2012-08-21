@@ -5,6 +5,8 @@ var connect = require('connect')
     , port = (process.env.PORT || 3000)
     , dgram = require("dgram");
 
+
+
 //Setup Express
 var server = express.createServer();
 server.configure(function(){
@@ -54,7 +56,8 @@ server.error(function(err, req, res, next){
 server.listen( port);
 
 //Setup Socket.IO
-var io = io.listen(server);
+var io = io.listen(server,  { log: false });
+
 io.sockets.on('connection', function(socket){
   console.log('Client Connected');
   udpsock.on("message", function (msg, rinfo) {
