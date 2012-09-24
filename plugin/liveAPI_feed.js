@@ -2,52 +2,63 @@ autowatch = 1;
 outlets = 1;
 
 var api = new LiveAPI(test_callback, "live_set");
-
-function bang()
-{
-	
 var all = new Dict();
-all.name = "super";	
-var g = traverse("live_set");
-all.set("live_set",g);
+all.name = "super";
+
+function map(path)
+{
+
+	var pathFormat = path.replace(" ", "::");
+	post(pathFormat);
+	var level = all.get(pathFormat);
+	post(level.get("loop"));
+		var m = mapLevel(path);
+		all.set(path,m);
 
 }
 
-
-function traverse(startPath){
+function mapLevel(startPath){
 	
-	var strCheck = startPath.split(" ");
-
-	if(strCheck[strCheck.length-1] != strCheck[strCheck.length-2]) {
-	
-	// Begin at startPath and create a Dict object to hold data of startPath class and its children
 		api.goto(startPath);
+
 		var info = api.info;
 
-		if (info != "No object") {
+		//post(info+"\n");
+
+		if (info != "No object") 
+		{
 
 			var me = new Dict;
 
-			// Get properties and their values of a class at startPath
-
 			var propNames = extractInfo(info, "property");
+			var childrenNames = api.children;
+
+			//post(childrenNames+"\n");
 
 			if (propNames.length != 0){
-
-				var props = new Dict;
-
 				for (var j = 0; j < propNames.length; j++){
 					var prop = propNames[j];
 					var value = api.get(prop);
 					me.set(prop, value);	
-				}
-
-				
+				}	
 			}
-			
-			// Get startPath children and add them to the main "me" Dict
 
-			var childrenNames = api.children;
+			if (childrenNames.length != 0){
+				for (var j = 0; j < childrenNames.length; j++){
+					var child = childrenNames[j];
+					var emptyCont = new Dict;
+					me.set(child, emptyCont);	
+				}	
+			}
+					
+			return me;
+		}
+	//}
+}
+
+function getChildren(){
+
+	var childrenNames = api.children;
 
 			if(childrenNames[0] != 0 && childrenNames.length > 1) {
 
@@ -74,17 +85,15 @@ function traverse(startPath){
 					}
 				}
 			}
-
-			return me;
-		}
-	}
 }
 
 function extractInfo(infoString, what){
 	
 	var extracts = [];
 	
-	extract(infoString, what);
+	extract(infoString);
+
+	//post(what.length+"\n");
 	
 	function extract(string){
 		var position = -1;
@@ -93,7 +102,7 @@ function extractInfo(infoString, what){
 			return;
 		}
 		else {
-			var newString = string.slice(position+9, string.length);
+			var newString = string.slice(position+what.length+1, string.length);
 			var newLine = newString.search("\n");
 			var foundProperty = newString.slice(0, newLine);
 			var onlyProperty = foundProperty.slice(0, foundProperty.search(" "));
