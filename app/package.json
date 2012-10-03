@@ -1,7 +1,7 @@
 {
   "name": "Peekable-Server",
   "description": "Server for Peekable",
-  "author": "YOUR NAME <your@emailaddress.com>",
+  "author": "hello@tailwinded.com",
   "version": "0.0.1",
   "dependencies": {
     "connect": "1.8.5",
@@ -15,5 +15,5 @@
 	"mocha": "*",
 	"should": "*"
   },
-  "engine": "node >= 0.6.6"
+  "engine": "node >= 0.8.11"
 }

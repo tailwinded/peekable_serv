@@ -21,10 +21,7 @@ server.configure(function(){
 
 var udpsock = dgram.createSocket("udp4");
 
-// udpsock.on("message", function (msg, rinfo) {
-//   console.log("server got: " + msg + " from " +
-//     rinfo.address + ":" + rinfo.port);
-// });
+
 
 udpsock.on("listening", function () {
   var address = udpsock.address();
@@ -33,6 +30,11 @@ udpsock.on("listening", function () {
 });
 
 udpsock.bind(43000);
+udpsock.on("message", function (msg, rinfo) {
+
+      var string = msg.toString();
+      console.log('server_message', string, rinfo);
+});
 
 //setup the errors
 server.error(function(err, req, res, next){
@@ -60,21 +62,9 @@ var io = io.listen(server,  { log: false });
 
 io.sockets.on('connection', function(socket){
   console.log('Client Connected');
-  udpsock.on("message", function (msg, rinfo) {
-
-      var string = msg.toString().replace(/(\u0000)/gm,"");
-      var cleanString = string.slice(0,string.length-1);
-      var decodedString = JSON.parse(cleanString);
-
-      //console.log("server got: " + decodedString.volume + " from " +
-      //rinfo.address + ":" + rinfo.port);
-      // socket.broadcast.emit('server_message',dat);
-      socket.emit('server_message', decodedString);
-    });
   socket.on('message', function(data){
     //socket.broadcast.emit('server_message',data);
     socket.emit('server_message',data);
-
     
   });
   socket.on('disconnect', function(){

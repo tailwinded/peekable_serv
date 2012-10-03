@@ -1,5 +1,6 @@
 Vagrant::Config.run do |config|
-  config.vm.box = "base"
+  # updated to use more recent version of Ubuntu
+  config.vm.box = "precise64"
 
   config.vm.forward_port 3000, 3000
   config.vm.forward_port 43000,43000,{ :protocol => "udp"}
@@ -14,14 +15,16 @@ Vagrant::Config.run do |config|
     # Uncomment the line below if you're using a version of node
     # that doesn't include NPM, (version less than 0.6.3)
     # chef.add_recipe "nodejs::npm"
-    chef.add_recipe "mongodb-debs"
+    # chef.add_recipe "mongodb-debs"
     chef.add_recipe "redis-server"
     chef.json = {
       "nodejs" => {
-        "version" => "0.6.13"
+        "version" => "0.8.11"
       }    	      
     }
   end
   # Do a few things after setup
-  config.vm.provision :shell, :path => "postsetup.sh"
+  # sh script does not execute properly when host is windows machine as it borks up line endings, 
+  # more info at: https://groups.google.com/forum/#!msg/vagrant-up/5oafKuFUWrg/PbYIVuZevAIJ
+  # config.vm.provision :shell, :path => "postsetup.sh"
 end
