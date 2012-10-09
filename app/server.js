@@ -1,13 +1,11 @@
 //setup Dependencies
 
-var   dgram = require("dgram")
-    , osc = require("osc-min")
-    , vault = require("./lib/vault")
+var   dgram = require("dgram"), 
+      store = require("./lib/osc-store");
 
 //authenticated OSC senders
 
-var authIps = ["10.0.2.2"]; 
-var oscers = vault.oscers;   
+var authIps = ["10.0.2.2"];   
 
 //setup UDP socket to listen for OSC messages
 
@@ -29,18 +27,12 @@ oscListener.on("message", function (msg, rinfo) {
   if (authIps.indexOf(ip) != -1){
 
     //setup object per ip address to hold osc data it sends
-    if (!oscers.hasOwnProperty(ip)){
-        oscers[ip] = new vault.oscer(ip, port); 
+    if (!store.sessions.hasOwnProperty(ip)){
+        store.addSession(undefined, ip, port); 
     }
 
-    var decoded = osc.fromBuffer(msg);
-    var messages = decoded.elements;
-
-    for (var i = 0; i < messages.length; i++){
-      var address = messages[i].address;
-      oscers[ip].osc[address] = messages[i].args;
-    } 
-
+    store.updateSession(ip, msg);
+    console.log(store.sessions);
   }
 
 });
