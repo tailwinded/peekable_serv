@@ -30,5 +30,6 @@ oscStore.updateSession = function (session, oscData){
       var address = oscElements[i].address;
       var args = oscElements[i].args;
       oscStore.sessions[session].map[address] = args;
+
     } 
 };
